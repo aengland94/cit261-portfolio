@@ -1,0 +1,30 @@
+/** base CSS **/
+* {
+    box-sizing: border-box;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+body {
+   display: block;
+   margin: auto;
+}
+
+h2, #title {
+   font-family: 'Oswald', sans-serif;
+   color: #38AA9F;
+}
+
+h1#title { 
+   text-transform: uppercase;
+   letter-spacing: .12em;
+   font-size: 3em; 
+}
+
+a {
+   color: #38AA9F;
+}
+
+a:hover {
+   text-decoration: none;
+   color: inherit;
+}
