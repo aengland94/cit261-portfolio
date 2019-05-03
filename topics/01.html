@@ -9,8 +9,64 @@
 
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
+
+   <style type="text/css">
+      li { cursor: pointer; }
+   </style>
+
+   <!-- Scripts -->
+   <script type="text/javascript">
+      var myList = ["ham", "cheese", "milk"];
+      var crossedOff = [false, false, false];
+
+      // loops through myList and displays it on the page in dev with id list
+      function displayList() {
+         var text = '<ul>';
+
+         for (var i in myList) {
+            text += "<li";
+
+            if (crossedOff[i]) {
+               text += " style='text-decoration: line-through;'";
+            } 
+            
+            text += " onclick='toggleCrossOffItem(" + i + ")'>" + myList[i] + "</li>";
+         }
+
+         text += "</ul>";
+
+         document.getElementById("list").innerHTML = text;
+      }
+
+      // adds item to myList if it isn't already there
+      function addItem() {
+         var item = document.getElementById("item").value;
+         
+         // check if item isn't already in list
+         if (!myList.includes(item)) {
+            myList.push(item);       // add item to list
+            crossedOff.push(false);  // set item to not be crossed off
+            displayList();           // redisplay list
+         }
+      }
+
+      // toggles the cross off of an item in myList based of param and crossedOff array value
+      // item should be a valid index of myList/crossedOff
+      function toggleCrossOffItem(item) {
+         // like an if statement
+         crossedOff[item] = crossedOff[item] ? false : true;
+         displayList();           // redisplay list
+      }
+   </script>
 </head>
 <body>
    <header><h1 id="title">Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays</h1></header>
+   <h2>Your Grocery List:</h2>
+   <div id="list"></div>
+   
+      <input type="text" name="item" id="item" maxlength="30">
+      <button id="addItem" onclick="addItem();">Add Item</button>
+   
+   <script type="text/javascript">displayList();</script>
 </body>
 </html>
