@@ -9,6 +9,7 @@
 
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
+   <link rel="stylesheet" type="text/css" href="../css/grid.css">
 
    <style type="text/css">
       li { cursor: pointer; }
@@ -59,13 +60,14 @@
       }
    </script>
 </head>
-<body>
-   <header><h1 id="title">Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays</h1></header>
-   <h2>Your Grocery List:</h2>
-   <div id="list"></div>
-   
-      <input type="text" name="item" id="item" maxlength="30">
-      <button id="addItem" onclick="addItem();">Add Item</button>
+<body class="container">
+   <header class="row"><h1 id="title" class="col">Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays</h1></header>
+   <div>
+      <h2 class="col-12">Your Grocery List:</h2>
+      <div id="list" class="col-12"></div>
+      <input type="text" name="item" id="item" class="col-4" maxlength="30">
+      <button id="addItem" class="col" onclick="addItem();">Add Item</button>
+   </div>
    
    <script type="text/javascript">displayList();</script>
 </body>

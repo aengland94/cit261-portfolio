@@ -1,0 +1,32 @@
+/* css for ease grid layout */
+.container { 
+   display: flex; 
+   padding: 1%;
+   flex-flow: column wrap;
+}
+
+.row {
+   width: 100%;
+   padding: 2%;
+   display: flex;
+   flex-flow: row wrap;
+   align-items: stretch;
+}
+
+.col-12, .col-9, .col-6, .col-5, .col-4, .col-3, .col-2, .col {
+   flex-flow: column wrap;
+   flex: auto;
+   padding: 5px;
+}
+
+.col-12 { max-width: 100%; }
+.col-9 { max-width: 75%; }
+.col-6 { max-width: 50%; }
+.col-5 { max-width: 40%; }
+.col-4 { max-width: 33%; }
+.col-3 { max-width: 25%; }
+.col-2 { max-width: 12%; }
+
+@media all and (min-width: 500px) {
+   .container { width: 90%; }
+}

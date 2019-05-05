@@ -9,8 +9,23 @@
 
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
+   <link rel="stylesheet" type="text/css" href="../css/grid.css">
+
+   <!-- Scripts -->
+   <script type="text/javascript"></script>
 </head>
-<body>
-   <header><h1 id="title">HTML5 Tags - Video, Audio, and Canvas</h1></header>
+<body class="container">
+   <header class="row"><h1 id="title">HTML5 Tags - Video, Audio, and Canvas</h1></header>
+   <div class="row">
+      <video class="col-6" src="../media/waves.mp4" controls="true">wave video</video>
+      <div class="col">Video by Michal Marek from Pexels</div>
+   </div>   
+   <div class="row">
+      <audio src="../media/tide.mp3" controls="true">tide audio</audio>
+      <div class="col">Audio provided by <a href="https://icons8.com/">this site</a></div>
+   </div>
+   <div class="row">
+      <canvas id="myCanvas" class="col-6" width="200" height="100" style="border:1px solid #000000;"></canvas>
+   </div>
 </body>
 </html>

@@ -28,3 +28,10 @@ a:hover {
    text-decoration: none;
    color: inherit;
 }
+
+.btn {
+  padding: 10px;
+  background-color: #d8dfff;
+  margin: 8px;
+  vertical-align: middle;
+}
