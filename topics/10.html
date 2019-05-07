@@ -12,7 +12,44 @@
    <link rel="stylesheet" type="text/css" href="../css/grid.css">
 
    <!-- Scripts -->
-   <script type="text/javascript"></script>
+   <script type="text/javascript">
+      var c, ctx, count, midH, midW;
+
+      function init() {
+         c = document.getElementById("myCanvas");
+         ctx = c.getContext("2d");
+         count = 0;
+         midH = c.height / 2;
+         midW = c.width / 2;
+      }
+
+      function wave (x) { return Math.sin(x * Math.PI / 90 + count) * c.height / 5 + midH; }
+
+      function drawWave() {
+         ctx.beginPath();
+         for (x = 0; x <= 360; x++) {
+            y = wave(x)
+            ctx.lineTo(x,y);
+         }
+
+         ctx.stroke();
+      }
+
+      function drawCircle() {
+         ctx.beginPath();
+         ctx.arc(midW, wave(midW) - 10, 10, 0, 2*Math.PI);
+         ctx.stroke();
+      }
+
+      function draw() {
+         ctx.fillStyle = "#00cca8"; 
+         ctx.fillRect(0, 0, c.width, c.height);
+         drawWave();
+         drawCircle();
+
+         count = count < c.width ? count + 0.25 : 0;
+      }
+   </script>
 </head>
 <body class="container">
    <header class="row"><h1 id="title">HTML5 Tags - Video, Audio, and Canvas</h1></header>
@@ -27,5 +64,10 @@
    <div class="row">
       <canvas id="myCanvas" class="col-6" width="200" height="100" style="border:1px solid #000000;"></canvas>
    </div>
+
+   <script type="text/javascript">
+      init();
+      setInterval(draw, 100);
+   </script>
 </body>
 </html>
