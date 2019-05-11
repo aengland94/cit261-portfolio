@@ -9,8 +9,64 @@
 
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
+   <link rel="stylesheet" type="text/css" href="../css/grid.css">
+
+   <!-- Scripts -->
+   <script type="text/javascript">
+      var colors;
+
+      function addColors() {
+         if (colors) {
+            // build colors
+            console.log("building colors");
+            var result = document.getElementById("result");
+            for (c in colors) {
+               var color = document.createElement("div");
+               color.setAttribute("class", "col");
+               color.style.color = colors[c].value;
+               color.innerHTML = colors[c].color;
+
+               result.appendChild(color);
+            }
+         }
+         else {
+            loadData(addColors);
+         }
+      }
+
+      function stringifyColors() {
+         if (colors) {
+            document.getElementById("stringified").innerHTML = JSON.stringify(colors);
+         }
+         else {
+            loadData(stringifyColors);
+         }
+      }
+
+      function loadData(callback) {
+         var xhr = new XMLHttpRequest();
+
+         xhr.open("GET", "../data/colors.json");
+
+         xhr.onload = function() {
+            //result.innerHTML = xhr.status + " : " + xhr.statusText;
+            colors = JSON.parse(xhr.responseText);
+            callback();
+         };
+
+         xhr.onerror =  function() { result.innerHTML = "Request Failed"; };
+
+         xhr.send();
+      }
+   </script>
 </head>
-<body>
-   <header><h1 id="title">JSON Parse, Stringify</h1></header>
+<body class="container">
+   <header class="row"><h1 id="title" class="col">JSON Parse, Stringify</h1></header>
+   <div id="result" class="row"></div>
+   <div class="row">      
+      <button onclick="addColors();" class="col">Add Colors</button>
+      <button onclick="stringifyColors();" class="col">Stringify Colors</button>      
+   </div>
+   <div id="stringified" class="row"></div>
 </body>
 </html>
