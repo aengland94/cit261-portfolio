@@ -10,8 +10,62 @@
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
    <link rel="stylesheet" type="text/css" href="../css/grid.css">
+
+   <!-- Scripts -->
+   <script type="text/javascript">
+      function loadData() {
+         var xhr = new XMLHttpRequest();
+         var q = encodeURIComponent(document.getElementById("ingredient").value.trim());
+         var url = "https://www.food2fork.com/api/search?key=b6c1e27f00566da7486407e22abdd521&q=" + q;
+
+         xhr.open("GET", url);
+
+         xhr.onload = function() {
+            var recipes = JSON.parse(xhr.responseText).recipes;
+            var result = document.getElementById("result");
+
+            for (r in recipes) {
+               var recipe = document.createElement("a");
+               recipe.setAttribute("class", "col-6");
+               recipe.setAttribute("href", recipes[r].source_url);
+
+               var title = document.createElement("h5");
+               title.setAttribute("class", "col-12");
+               title.innerHTML = recipes[r].title;
+
+               var pic = document.createElement("img");
+               pic.setAttribute("class", "col-12");
+               pic.setAttribute("src", recipes[r].image_url);
+
+               recipe.appendChild(title);
+               recipe.appendChild(pic);
+
+               result.appendChild(recipe);
+            }
+         };
+
+         xhr.onerror =  function() { result.innerHTML = "Request Failed"; };
+
+         xhr.send();
+      }
+
+      function test() {
+         console.log("'" + encodeURIComponent(" chicken saled ".trim()) + "'");
+      }
+   </script>
 </head>
 <body class="container">
    <header class="row"><h1 id="title" class="col">Using XMLHTTPRequest to Consume a JSON Web Service</h1></header>
+   <div class="row">
+      <h3 class="col-12">Recipe Finder</h3>
+      <input type="text" name="ingredient" id="ingredient" placeholder="Enter an ingredient" class="col-6">
+      <button onclick="loadData();">Find Recipes</button>
+   </div>
+   <div id="result" class="row">
+      <!--<a href=":source_url" class="col-6">
+         <h5 class="col-12">:title</h5>
+         <img src=":image_url" class="col-12">
+      </a>-->      
+   </div>
 </body>
 </html>
