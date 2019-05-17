@@ -9,8 +9,28 @@
 
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
+   <link rel="stylesheet" type="text/css" href="../css/grid.css">
+   <style type="text/css">
+      div {
+         min-height: 10px;
+         border: solid black;
+      }
+   </style>
+
+   <!-- Scripts -->
+   <script type="text/javascript" src="../js/dom_usage.js"></script>
+   <script type="text/javascript">
+      function begin() {
+         var parent = document.getElementById("begin").parentElement;
+         removeChildren(parent);
+         addNav(parent);
+      }
+   </script>
 </head>
-<body>
-   <header><h1 id="title">DOM Manipulation Using createElement, appendChild, insertBefore, removeChild, etc.</h1></header>
+<body class="container">
+   <header class="row"><h1 id="title" class="col">DOM Manipulation Using createElement, appendChild, insertBefore, removeChild, etc.</h1></header>
+   <div class="row">
+      <button onclick="begin();" id="begin">Begin</button>
+   </div>
 </body>
 </html>
