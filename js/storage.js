@@ -40,7 +40,7 @@ function storeData() {
          }
          break;
       case "associative": 
-         data = {};
+         data = [];
          data["breakfast"] = document.getElementById("associativeInputBreakfast").value;
          data["lunch"] = document.getElementById("associativeInputLunch").value;
          data["dinner"] = document.getElementById("associativeInputDinner").value;
@@ -50,6 +50,8 @@ function storeData() {
          data.make = document.getElementById("objectInputMake").value;
          data.model = document.getElementById("objectInputModel").value;
          data.year = document.getElementById("objectInputYear").value;
+         // stringify data for storage
+         data = JSON.stringify(data);
    }
 
    // set the selected storage variable to data
