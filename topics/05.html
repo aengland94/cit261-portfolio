@@ -9,8 +9,53 @@
 
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
+   <link rel="stylesheet" type="text/css" href="../css/grid.css">
+
+   <!-- Scripts -->
+   <script type="text/javascript" src="../js/storage.js"></script>
 </head>
-<body>
-   <header><h1 id="title">Local Storage API, Storing and Retrieving Simple Data, Arrays, Associative Arrays, and Objects</h1></header>
+<body class="container">
+   <header class="row"><h1 id="title" class="col">Local Storage API, Storing and Retrieving Simple Data, Arrays, Associative Arrays, and Objects</h1></header>
+   <div class="row">
+      <select id="dataSelect" class="col-3">
+         <option value="simple">Simple Data</option>
+         <option value="array">Array</option>
+         <option value="associative">Associative Array</option>
+         <option value="object">Object</option>
+      </select>
+      <select id="storageSelect" class="col-3">
+         <option value="local">Local Storage</option>
+         <option value="session">Session Storage</option>
+      </select>
+      <button id="storeButton" class="col-3">Store</button>
+      <button id="retrieveButton" class="col-3">Retrieve</button>
+   </div>
+   <div id="in">
+      <div class="row" id="simple" style="display: block;">
+         <input type="text" name="simpleInput" id="simpleInput" class="col-3" placeholder="Input something simple">
+      </div>
+      <div class="row" id="array" style="display: none;">
+         <input type="text" name="arrayInput0" id="arrayInput0" class="col-3" placeholder="First array input">
+         <input type="text" name="arrayInput1" id="arrayInput1" class="col-3" placeholder="Second array input">
+         <input type="text" name="arrayInput2" id="arrayInput2" class="col-3" placeholder="Third array input">
+         <input type="text" name="arrayInput3" id="arrayInput3" class="col-3" placeholder="Fourth array input">
+      </div>
+      <div class="row" id="associative" style="display: none;">
+         <input type="text" name="associativeInputBreakfast" id="associativeInputBreakfast" class="col-3" placeholder="Favorite Breakfast">
+         <input type="text" name="associativeInputLunch" id="associativeInputLunch" class="col-3" placeholder="Favorite Lunch">
+         <input type="text" name="associativeInputDinner" id="associativeInputDinner" class="col-3" placeholder="Favorite Dinner">
+      </div>
+      <div class="row" id="object" style="display: none;">
+         <input type="text" name="objectInputMake" id="objectInputMake" class="col-3" placeholder="Car Make">
+         <input type="text" name="objectInputModel" id="objectInputModel" class="col-3" placeholder="Car Model">
+         <input type="text" name="objectInputYear" id="objectInputYear" class="col-3" placeholder="Car Year">
+      </div>
+   </div>
+   <div class="row"><p id="out" class="col"></p></div>
+
+   <!-- footer scripts -->
+   <script type="text/javascript">
+      document.body.onload = function() { setListeners() };
+   </script>
 </body>
 </html>
