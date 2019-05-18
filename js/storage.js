@@ -40,10 +40,12 @@ function storeData() {
          }
          break;
       case "associative": 
-         data = [];
+         data = {};
          data["breakfast"] = document.getElementById("associativeInputBreakfast").value;
          data["lunch"] = document.getElementById("associativeInputLunch").value;
          data["dinner"] = document.getElementById("associativeInputDinner").value;
+         // stringify data for storage
+         data = JSON.stringify(data);
          break;
       case "object": 
          data = {};
@@ -96,7 +98,7 @@ function retrieveData() {
             }
             break;
          case "associative": 
-            data = Array(data);
+            data = JSON.parse(data);
             output = "<strong>Your Favorite Foods</strong>";
             output += "<br/> <em>Breakfast</em>: " + data["breakfast"];
             output += "<br/> <em>Lunch</em>: " + data["lunch"];
