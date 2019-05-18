@@ -4,6 +4,7 @@ function setListeners() {
    document.getElementById("dataSelect").onchange = changeInputDisplay;
    document.getElementById("storeButton").onclick = storeData;
    document.getElementById("retrieveButton").onclick = retrieveData;
+   document.getElementById("removeButton").onclick = removeData;
 
    changeInputDisplay();
 };
@@ -140,4 +141,18 @@ function retrieveData() {
    }
    document.getElementById("out").innerHTML = output;
    console.log("output: " + output);
+}
+
+function removeData() {
+   console.log("removing data");
+   var value = document.getElementById("dataSelect").value;
+   var storage = document.getElementById("storageSelect").value;
+
+   switch (storage) {
+      case "local":
+         localStorage.removeItem(value);
+         break;
+      case "session":
+         sessionStorage.removeItem(value);
+   }   
 }
