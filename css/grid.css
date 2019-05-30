@@ -27,6 +27,8 @@
 .col-3 { max-width: 25%; }
 .col-2 { max-width: 12%; }
 
+.no-padding { padding: 0px; }
+
 @media all and (min-width: 500px) {
    .container { width: 90%; }
 }

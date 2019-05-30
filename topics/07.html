@@ -9,8 +9,34 @@
 
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
+   <link rel="stylesheet" type="text/css" href="../css/grid.css">
+   <style>      
+      .item {
+         height: 100px;
+         background-color: #333;
+         border: #ccc solid;
+         cursor: pointer;
+      }    
+      .round {
+         cursor: default;
+      }  
+   </style>
+
+   <!-- Scripts -->
+   <script type="text/javascript" src="../js/css_props.js"></script>
 </head>
-<body>
-   <header><h1 id="title">Manipulating CSS Class Properties Using JavaScript</h1></header>
+<body class="container">
+   <header class="row"><h1 id="title" class="col" onmouseenter="hideFull();" onmouseleave="showFull();">Manipulating CSS Class Properties Using JavaScript</h1></header>
+   <div class="row">
+      <div class="col-6 item round" onmouseenter="roundCorners();" onmouseleave="squareCorners();"></div>
+      <div class="col-12 item" id="full" onclick="changeWidth();"></div>
+      <div class="col-6 item round" onmouseenter="roundCorners();" onmouseleave="squareCorners();"></div>
+      <div class="col-3 item" id="colors" onclick="changeBackgroundColor();"></div>
+      <div class="col-6 item round" onmouseenter="roundCorners();" onmouseleave="squareCorners();"></div>
+      <div class="col-3 item" id="tall" onclick="changeHeight();"></div>
+      <div class="col-6 item round" onmouseenter="roundCorners();" onmouseleave="squareCorners();"></div>
+      <div class="col-3 item" id="borderControl" onclick="changeBorder();"></div>
+      <div class="col-6 item round" onmouseenter="roundCorners();" onmouseleave="squareCorners();"></div>
+   </div>
 </body>
 </html>
