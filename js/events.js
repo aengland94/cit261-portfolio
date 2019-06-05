@@ -1,19 +1,28 @@
-var touch, grow, secret;
+var touch, shown, secret, spacers;
 
 function initListeners() {
-   grow = true;
+   shown = false;
    touch = document.getElementById("touch");
    touch.addEventListener("transitionend", afterTransition);
+   // touch.addEventListener("mouseenter", showSecret);
+   // touch.addEventListener("mouseleave", hideSecret);
    secret = document.getElementById("secret");
-   secret.addEventListener("transitionend", breakaway)   
+
+   spacers = document.getElementsByClassName("spacer");
+   for (var i = 0; i < spacers.length; i++) {
+      spacers[i].addEventListener("animationend", endAnimation);
+      spacers[i].addEventListener("animationiteration", iterateAnimation);
+   }
 }
 
 function showSecret() {
    touch.style.backgroundColor = "#38aa9f";
+   shown = true;
 }
 
 function hideSecret() {
    touch.style.backgroundColor = "#fff";
+   shown = false;
 }
 
 function afterTransition() {
@@ -22,26 +31,24 @@ function afterTransition() {
 }
 
 function toggleFontWeight() {
-   var size;
-
-   if (grow) {
-      grow = false;
-      size = 900;
-   } else {
-      grow = true;
-      size = 300;
-   }
-
-   secret.style.fontWeight = size;
+   secret.style.fontWeight = shown ? 900 : 300;
 }
 
 function resetAnimation() {
-   for (var item in document.getElementsByClassName("spacer")) {
-      item.style.animation = "blank";
-      item.style.animation = "pulseHeight 2s 4";
+   var animation = shown ? "pulseHeight 2s 4" : "pulseHeight2 2s 4";
+   for (var i = 0; i < spacers.length; i++) {
+      spacers[i].style.animation = animation;
    }
 }
 
-function breakaway() {
-   console.log("secret transition ended");
+function endAnimation() {
+   this.style.backgroundColor = shown ? "#fff" : "#38aa9f";
+}
+
+function iterateAnimation() {
+   this.style.backgroundColor = getAColor();
+}
+
+function getAColor() {
+   return "hsl(" + Math.floor(Math.random() * 359) + ", 100%, 50%)";
 }
