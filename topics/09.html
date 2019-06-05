@@ -18,13 +18,15 @@
       }
       #secret {
          color: #fff;
+         font-weight: 300;
+         transition: font-weight 1s;
       }
    </style>
    
    <!-- Scripts -->
    <script type="text/javascript" src="../js/events.js"></script>
 </head>
-<body onbeforeunload="return true;" class="container">
+<body onload="initListeners();" onbeforeunload="return true;" class="container">
    <header class="row"><h1 id="title" class="col">Standard JavaScript Events Including those for Mobile Devices ( Ex. onTouchBegin, onLoad, etc.) and Animation and Transition Events</h1></header>
    <div class="row"><div class="col" id="touch" ontouchstart="showSecret();" ontouchend="hideSecret();">
       <div class="row"><div class="col"></div></div>

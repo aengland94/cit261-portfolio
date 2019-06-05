@@ -1,7 +1,22 @@
+var touch;
+
+function initListeners() {
+   touch = document.getElementById("touch");
+   touch.addEventListener("transitionend", afterTransition);
+}
+
 function showSecret() {
-   document.getElementById("touch").style.backgroundColor = "#38aa9f";
+   touch.style.backgroundColor = "#38aa9f";
 }
 
 function hideSecret() {
-   document.getElementById("touch").style.backgroundColor = "#fff";
+   touch.style.backgroundColor = "#fff";
+}
+
+function afterTransition() {
+   toggleFontWeight();
+}
+
+function toggleFontWeight() {
+   document.getElementById("secret").style.fontWeight = 900;
 }
