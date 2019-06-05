@@ -9,8 +9,28 @@
 
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
+   <link rel="stylesheet" type="text/css" href="../css/grid.css">
+   <style type="text/css">
+      #touch {
+         border: #333 solid;
+         background-color: #fff;
+      }
+      #secret {
+         color: #fff;
+      }
+   </style>
+   
+   <!-- Scripts -->
+   <script type="text/javascript" src="../js/events.js"></script>
 </head>
-<body>
-   <header><h1 id="title">Standard JavaScript Events Including those for Mobile Devices ( Ex. onTouchBegin, onLoad, etc.) and Animation and Transition Events</h1></header>
+<body onbeforeunload="return true;" class="container">
+   <header class="row"><h1 id="title" class="col">Standard JavaScript Events Including those for Mobile Devices ( Ex. onTouchBegin, onLoad, etc.) and Animation and Transition Events</h1></header>
+   <div class="row"><div class="col" id="touch" ontouchbegin="showSecret();" ontouchend="hideSecret();">
+      <div class="row"><div class="col"></div></div>
+      <div class="row"><div class="col"><h3>Touch this box to reveal a secret message</h3></div></div>
+      <div class="row"><div class="col"></div></div>
+      <div class="row"><div class="col"><p id="secret">Yay!!! You used a touchscreen to touch the box. Touchscreens add extra touch events that cannot be used without them. Stop touching the box to rehide this message :)</p></div></div>
+      <div class="row"><div class="col"></div></div>
+   </div></div>
 </body>
 </html>
