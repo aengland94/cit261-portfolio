@@ -1,9 +1,11 @@
-var touch, grow;
+var touch, grow, secret;
 
 function initListeners() {
    grow = true;
    touch = document.getElementById("touch");
-   touch.addEventListener("transitionend", afterTransition);   
+   touch.addEventListener("transitionend", afterTransition);
+   secret = document.getElementById("secret");
+   secret.addEventListener("transitionend", breakaway)   
 }
 
 function showSecret() {
@@ -30,7 +32,7 @@ function toggleFontWeight() {
       size = 300;
    }
 
-   document.getElementById("secret").style.fontWeight = size;
+   secret.style.fontWeight = size;
 }
 
 function resetAnimation() {
@@ -38,4 +40,8 @@ function resetAnimation() {
       item.style.animation = "blank";
       item.style.animation = "pulseHeight 2s 4";
    }
+}
+
+function breakaway() {
+   console.log("secret transition ended");
 }
