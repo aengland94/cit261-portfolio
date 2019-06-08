@@ -30,7 +30,7 @@
          transition-timing-function: ease-in-out;
       }
       #colorBox {
-         height: 100px;
+         height: 500px;
          background-color: #fff;
          color: #38aa9f;
          transition-property: background-color, color;
@@ -49,35 +49,37 @@
 </head>
 <body class="container" onload="initListeners();">
    <header class="row"><h1 id="title" class="col">Designing, Defining, and Triggering CSS3 Transitions without Custom Libraries (Thought Library)</h1></header>
-   <div class="row" id="status-bar">
-      <div class="col-md status-item"></div>
-   </div>
-   <div id="graph" class="row">
-      <div class="col-2-fixed" id="secret">Secret Revealed</div>
-      <div class="col-12-fixed">
-         <div class="row"><div class="col">Graph Title</div></div>
-         <div class="row">
-            <div class="col-2-fixed">(data point 1)</div>
-            <div class="col-10-fixed status-item" id="dp1"></div>
+   <div class="row">
+      <div class="col-md-6"><div id="graph" class="row">
+         <div class="col-2-fixed" id="secret">Secret Revealed</div>
+         <div class="col-12-fixed">
+            <div class="row"><div class="col">Graph Title</div></div>
+            <div class="row">
+               <div class="col-2-fixed">(data point 1)</div>
+               <div class="col-10-fixed status-item" id="dp1"></div>
+            </div>
+            <div class="row">
+               <div class="col-2-fixed">(data point 2)</div>
+               <div class="col-10-fixed status-item" id="dp2"></div>
+            </div>
+            <div class="row">
+               <div class="col-2-fixed">(data point 3)</div>
+               <div class="col-10-fixed status-item" id="dp3"></div>
+            </div>
+            <div class="row">
+               <div class="col-2-fixed">(data point 4)</div>
+               <div class="col-10-fixed status-item" id="dp4"></div>
+            </div>
+            <div class="row">
+               <div class="col-2-fixed">(data point 5)</div>
+               <div class="col-10-fixed status-item" id="dp5"></div>
+            </div>
          </div>
-         <div class="row">
-            <div class="col-2-fixed">(data point 2)</div>
-            <div class="col-10-fixed status-item" id="dp2"></div>
-         </div>
-         <div class="row">
-            <div class="col-2-fixed">(data point 3)</div>
-            <div class="col-10-fixed status-item" id="dp3"></div>
-         </div>
-         <div class="row">
-            <div class="col-2-fixed">(data point 4)</div>
-            <div class="col-10-fixed status-item" id="dp4"></div>
-         </div>
-         <div class="row">
-            <div class="col-2-fixed">(data point 5)</div>
-            <div class="col-10-fixed status-item" id="dp5"></div>
-         </div>
+      </div></div>
+      <div class="col-md-6">
+         <div class="row" id="status-bar"><div class="col-md status-item"></div></div>
+         <div class="row"><div class="col" id="colorBox">Hover me to change my colors</div></div>
       </div>
-   </div>
-   <div class="row"><div class="col" id="colorBox">Hover me to change my colors</div></div>   
+   </div>      
 </body>
 </html>
