@@ -10,8 +10,80 @@
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
    <link rel="stylesheet" type="text/css" href="../css/grid.css">
+   <style type="text/css">
+      .music-item {
+         height: 200px;
+         margin: 0px 5px;
+         background-size: 100% 200%;
+         background-image: linear-gradient(to bottom, #fff 50%, #ccc 50%);
+         background-position-y: 10%;
+      }
+
+      @keyframes music1 {
+        from {background-position-y: 10%;}
+        to {background-position-y: 60%;}
+      }
+
+      @keyframes music2 {
+        from {background-position-y: 10%;}
+        to {background-position-y: 80%;}
+      }
+
+      @keyframes music3 {
+        from {background-position-y: 10%;}
+        to {background-position-y: 100%;}
+      }
+
+      @keyframes music4 {
+        from {background-position-y: 10%;}
+        to {background-position-y: 90%;}
+      }
+
+      @keyframes music5 {
+        from {background-position-y: 10%;}
+        to {background-position-y: 85%;}
+      }
+
+      .music-ani-1 {
+         animation: music1 0.75s infinite alternate;
+      }
+
+      .music-ani-2 {
+         animation: music2 1s infinite 0.25s alternate;
+      }
+
+      .music-ani-3 {
+         animation: music3 1.75s infinite alternate;
+      }
+
+      .music-ani-4 {
+         animation: music4 1s infinite 0.75s alternate;
+      }
+
+      .music-ani-5 {
+         animation: music5 1s infinite alternate;
+      }
+   </style>
+
+   <!-- Scripts -->
+   <script type="text/javascript" src="../js/css_animations.js"></script>
 </head>
-<body class="container">
+<body class="container" onload="init();">
    <header class="row"><h1 id="title" class="col">Designing, Defining, and Triggering CSS3 Animations without Custom Libraries (Thought Library)</h1></header>
+   <div class="row">
+      <div class="col-md-6-fixed" id="music-player">
+         <div class="row">
+            <div class="col music-item" id="music-item-1"></div>
+            <div class="col music-item" id="music-item-2"></div>
+            <div class="col music-item" id="music-item-3"></div>
+            <div class="col music-item" id="music-item-4"></div>
+            <div class="col music-item" id="music-item-5"></div>
+         </div>
+         <div class="row">
+            <button class="col-4-fixed" id="music-button">Play Music</button>
+            <button class="col-4-fixed" id="stop-music-button">Stop Music</button>
+         </div>
+      </div>
+   </div>
 </body>
 </html>
