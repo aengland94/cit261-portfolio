@@ -11,6 +11,16 @@
    <link rel="stylesheet" type="text/css" href="../css/base.css">
    <link rel="stylesheet" type="text/css" href="../css/grid.css">
    <style type="text/css">
+      #music-player {
+         border: #333 solid;
+      }
+      #now-playing {
+         overflow: hidden;
+      }
+      #track {
+         position: relative;
+         opacity: 0;
+      }
       .music-item {
          height: 200px;
          margin: 0px 5px;
@@ -63,6 +73,32 @@
       .music-ani-5 {
          animation: music5 1s infinite alternate;
       }
+
+      @keyframes slideTrack {
+        0% {
+         opacity: 0;
+         left: 110%;
+        }
+        5% {
+         opacity: 1;
+        }
+        20% {
+         left: 0%;
+        }
+        95% {
+         opacity: 1;
+         left: 0%;
+        }
+        100% {
+         opacity: 0;
+         left: -80%;
+        }
+      }
+
+      .track-ani {
+         animation: slideTrack 30s infinite;
+      }
+
    </style>
 
    <!-- Scripts -->
@@ -72,6 +108,10 @@
    <header class="row"><h1 id="title" class="col">Designing, Defining, and Triggering CSS3 Animations without Custom Libraries (Thought Library)</h1></header>
    <div class="row">
       <div class="col-md-6-fixed" id="music-player">
+         <div class="row"><h3 class="col">Visual Music Player</h3></div>
+         <div class="row"><div class="col" id="now-playing">
+            <div id="track">Now Playing:</div>
+         </div></div>
          <div class="row">
             <div class="col music-item" id="music-item-1"></div>
             <div class="col music-item" id="music-item-2"></div>
@@ -80,8 +120,10 @@
             <div class="col music-item" id="music-item-5"></div>
          </div>
          <div class="row">
-            <button class="col-4-fixed" id="music-button">Play Music</button>
-            <button class="col-4-fixed" id="stop-music-button">Stop Music</button>
+            <div class="col"></div>
+            <button class="col-4-fixed" id="music-button">Play</button>
+            <button class="col-4-fixed" id="stop-music-button">Stop</button>
+            <div class="col"></div>
          </div>
       </div>
    </div>

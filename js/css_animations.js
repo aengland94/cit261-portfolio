@@ -1,10 +1,14 @@
-var toggleButton, musicItems;
+var toggleButton, musicItems, track, trackCount;
 
 function init() {
    toggleButton = document.getElementById("music-button");
    toggleButton.onclick = startMusic;
 
    document.getElementById("stop-music-button").onclick = stopMusic;
+
+   track = document.getElementById("track");
+   trackCount = 0;
+   track.onanimationiteration = setNewTrack;
 
    musicItems = document.getElementsByClassName("music-item");
 
@@ -15,34 +19,49 @@ function startMusic() {
    for (var i = 0; i < musicItems.length; i++) {
       musicItems[i].classList.add("music-ani-" + (i + 1));
    }
-   // document.getElementById("music-item-1").classList.add("music-ani-1");
+
+   track.classList.add("track-ani");
+   setNewTrack();
+
    toggleButton.onclick = pauseMusic;
-   toggleButton.innerHTML = "Pause Music";
+   toggleButton.innerHTML = "Pause";
 }
 
 function pauseMusic() {
    for (var i = 0; i < musicItems.length; i++) {
       musicItems[i].style.animationPlayState = "paused";
    }
-   // document.getElementById("music-item-1").classList.remove("music-ani-1");
+
+   track.style.animationPlayState = "paused";
+   
    toggleButton.onclick = unpauseMusic;
-   toggleButton.innerHTML = "Play Music";
+   toggleButton.innerHTML = "Play";
 }
 
 function unpauseMusic() {
    for (var i = 0; i < musicItems.length; i++) {
       musicItems[i].style.animationPlayState = "running";
    }
-   // document.getElementById("music-item-1").classList.remove("music-ani-1");
+
+   track.style.animationPlayState = "running";
+   
    toggleButton.onclick = pauseMusic;
-   toggleButton.innerHTML = "Pause Music";
+   toggleButton.innerHTML = "Pause";
 }
 
 function stopMusic() {
    for (var i = 0; i < musicItems.length; i++) {
       musicItems[i].classList.remove("music-ani-" + (i + 1));
    }
-   // document.getElementById("music-item-1").classList.remove("music-ani-1");
+
+   track.classList.remove("track-ani");
+   trackCount = 0;
+
    toggleButton.onclick = startMusic;
-   toggleButton.innerHTML = "Play Music";
+   toggleButton.innerHTML = "Play";
+}
+
+function setNewTrack() {
+   trackCount++;
+   track.innerHTML = "Now Playing: Track " + trackCount;
 }
