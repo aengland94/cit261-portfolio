@@ -10,8 +10,28 @@
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
    <link rel="stylesheet" type="text/css" href="../css/grid.css">
+
+   <!-- Scripts -->
+   <script type="text/javascript" src="../js/objects.js"></script>
 </head>
-<body class="container">
+<body class="container" onload="init();">
    <header class="row"><h1 id="title" class="col">Object Creation Functions, Inheritance, Properties, Methods, Instantiation</h1></header>
+   <div class="row">
+      <div class="col-md-6-fixed">
+         <div class="row">
+            <input type="text" name="petName" id="petName" placeholder="Pet's Name" class="col">
+         </div>
+         <div class="row">
+            <div class="col">Cat&nbsp;<input type="radio" name="petType" value="cat" checked="true"></div>
+            <div class="col">Bird&nbsp;<input type="radio" name="petType" value="bird"></div>
+            <div class="col">Bunny&nbsp;<input type="radio" name="petType" value="bunny"></div>
+            <div class="col">Fish&nbsp;<input type="radio" name="petType" value="fish"></div>
+         </div>
+         <div class="row">
+            <button class="col" id="petButton">Add Pet</button>
+         </div>
+      </div>
+      <ul class="col-md-6-fixed" id="petsList"></ul>
+   </div>
 </body>
 </html>
