@@ -10,8 +10,69 @@
    <!-- Styles -->
    <link rel="stylesheet" type="text/css" href="../css/base.css">
    <link rel="stylesheet" type="text/css" href="../css/grid.css">
+   <style>
+       #slideContainer{        
+           position: relative;
+           margin: auto;
+           overflow: hidden;
+           border: black solid;
+           padding-left: 0;
+           max-width: 1140px;
+           transform: skewX(15deg);
+       }
+       #slideShow{
+         display: block;
+         width: 10000px;
+         transition: 2s;
+       }
+       .slideShowButton{
+           background-color: #000;
+           color: #fff;
+           padding: 8px 16px;
+           cursor: pointer;
+           border: none;
+           position: absolute;
+           top: 50%;
+           transform: translate(0%, -50%);
+           z-index: 10;
+           transition: 1.5s;
+       }
+       .slideShowButton:hover{
+           color: #000;
+           background-color: #ccc;
+           transform: scale(1.5, 2);
+       }
+       #right{
+           right: 0%;
+           transform-origin: right;
+       }
+       #left{
+           left: 0%;
+           transform-origin: left;
+       }
+       .slides{
+           float: left;
+           width:   100%;
+           max-width: 1140px;
+           transition: 2.5s;
+       }    
+   </style>
+
+   <!-- Scripts -->
+   <script type="text/javascript" src="../js/css_transformations.js"></script>
 </head>
-<body class="container">
+<body class="container" onload="init();">
    <header class="row"><h1 id="title" class="col">Designing, Defining, and Triggering CSS3 Transforms without Custom Libraries (Thought Library)</h1></header>
+   <div class="row"><div class="col"></div><div id="slideContainer" class="col">
+      <div id="slideShow">
+        <img class="slides" src="../media/snow.png" alt="snow">
+        <img class="slides" src="../media/light.png" alt="light">
+        <img class="slides" src="../media/mountain.png" alt="mountain">
+        <img class="slides" src="../media/forest.png" alt="forest">
+        <img class="slides" src="../media/snow.png" alt="snow">
+      </div>
+      <button class="slideShowButton" id="left">&#10094;</button>
+      <button class="slideShowButton" id="right">&#10095;</button>
+   </div><div class="col"></div></div>
 </body>
 </html>
