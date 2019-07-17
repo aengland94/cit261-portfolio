@@ -1,0 +1,48 @@
+/* css for recipe finder app project */
+.recipe {
+   position: relative;
+   border-radius: 20;
+}
+.recipe * {
+   border-radius: 20;
+}
+.recipe-img {
+   z-index: 1;
+   width: 100%;
+   height: auto;
+}
+.recipe-title, .fav-btn, .list-btn {
+   position: absolute;
+   z-index: 5;
+   background-color: #333;
+   color: #38aa9f;
+   opacity: 0;
+   transition: 2s;
+}
+.fav {
+   opacity: 1;
+   color: #d38
+}
+.recipe-title:hover, .fav-btn:hover, .list-btn:hover {
+   opacity: 1;
+   color: #ccc;
+}
+.recipe-title {
+   left: 20px;
+}
+.fav-btn {
+   right: 20px;
+   bottom: 25px;
+   padding: 5px;
+}
+.list-btn {
+   right: 55px;
+   bottom: 25px;
+   padding: 5px;
+}
+.nav {
+   position: sticky;
+   top: 0;
+   background-color: #fff;
+   z-index: 20;
+}

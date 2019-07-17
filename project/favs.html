@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Your Fav Recipes</title>
+
+   <!-- Fonts -->
+   <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <!-- Styles -->
+   <link rel="stylesheet" type="text/css" href="../css/base.css">
+   <link rel="stylesheet" type="text/css" href="../css/grid.css">
+   <link rel="stylesheet" type="text/css" href="recipe.finder.css">
+
+   <!-- Scripts -->
+   <script type="module" src="recipe.finder.js"></script>
+</head>
+<body class="container" onload="init();">
+   <header class="row"><h1 id="title" class="col">Your Favorite Recipe</h1></header>
+   <div class="row nav">
+      <div class="col-md-4-fixed">
+         <div class="row">
+            <a href="index.html" class="col"><button class="col-12-fixed"><i class="fa fa-home"></i></button></a>
+            <a href="lists.html" class="col"><button class="col-12-fixed"><i class="fa fa-shopping-basket"></i></button></a>
+            <a href="favs.html" class="col"><button class="col-12-fixed"><i class="fa fa-heart"></i></button></a>
+         </div>
+      </div>
+   </div>
+   <div id="result" class="row" style="align-items: flex-start;">
+      <!-- <a href=":source_url" class="col-6">
+         <h5 class="col-12">:title</h5>
+         <img src=":image_url" class="col-12">
+      </a>  --> 
+      <div id="35120" class="col-md-3-fixed col-6-fixed recipe" onmouseenter="showHoverWrapper(this);" onmouseleave="hideHoverWrapper(this);">
+         <!-- <div class="recipe-background"></div> -->
+         <h5 class="recipe-title col-10">:title</h5>
+         <i class="fa fav-btn fav" onclick="toggleFav(this);">&#xf004;</i>
+         <i class="fa list-btn">&#xf291;</i>
+         <a class="col-12-fixed" href="http://www.closetcooking.com/2012/11/bacon-wrapped-jalapeno-popper-stuffed.html"><img src="http://static.food2fork.com/Bacon2BWrapped2BJalapeno2BPopper2BStuffed2BChicken2B5002B5909939b0e65.jpg" class="recipe-img"></a>
+      </div>    
+      <a href=":source_url" class="col-md-3-fixed col-6-fixed recipe"> 
+         <div class="recipe-hover-wrapper">
+            <h5 class="recipe-title col-10">:title</h5>
+            <i class="fa fa-heart fav-btn"></i>
+            <i class="fa fa-shopping-basket list-btn"></i>
+         </div>
+         <div class="col-12-fixed"><img src="http://static.food2fork.com/Buffalo2BChicken2BChowder2B5002B0075c131caa8.jpg" class="recipe-img"></div>
+      </a> 
+      <a href=":source_url" class="col-md-3-fixed col-6-fixed recipe"> 
+         <div class="recipe-hover-wrapper">
+            <h5 class="recipe-title col-10">:title</h5>
+            <i class="fa fa-heart fav-btn"></i>
+            <i class="fa fa-shopping-basket list-btn"></i>
+         </div>
+         <div class="col-12-fixed"><img src="http://static.food2fork.com/205xNxchickenandspinachflautas2296f.jpg.pagespeed.ic.RNEW9wsRU.jpg" class="recipe-img"></div>
+      </a> 
+      <a href=":source_url" class="col-md-3-fixed col-6-fixed recipe">
+         <div class="recipe-hover-wrapper">
+            <h5 class="recipe-title col-10">:title</h5>
+            <i class="fa fa-heart fav-btn"></i>
+            <i class="fa fa-shopping-basket list-btn"></i>
+         </div>
+         <div class="col-12-fixed"><img src="http://static.food2fork.com/4515542dbb.jpg" class="recipe-img"></div>
+      </a>  
+
+
+      <a href=":source_url" class="col-md-3-fixed col-6-fixed recipe"> 
+         <div class="recipe-hover-wrapper">
+            <h5 class="recipe-title col-10">:title</h5>
+            <i class="fa fa-heart fav-btn"></i>
+            <i class="fa fa-shopping-basket list-btn"></i>
+         </div>
+         <div class="col-12-fixed"><img src="http://static.food2fork.com/Buffalo2BChicken2BChowder2B5002B0075c131caa8.jpg" class="recipe-img"></div>
+      </a> 
+      <a href=":source_url" class="col-md-3-fixed col-6-fixed recipe"> 
+         <div class="recipe-hover-wrapper">
+            <h5 class="recipe-title col-10">:title</h5>
+            <i class="fa fa-heart fav-btn"></i>
+            <i class="fa fa-shopping-basket list-btn"></i>
+         </div>
+         <div class="col-12-fixed"><img src="http://static.food2fork.com/205xNxchickenandspinachflautas2296f.jpg.pagespeed.ic.RNEW9wsRU.jpg" class="recipe-img"></div>
+      </a> 
+      <a href=":source_url" class="col-md-3-fixed col-6-fixed recipe">
+         <div class="recipe-hover-wrapper">
+            <h5 class="recipe-title col-10">:title</h5>
+            <i class="fa fa-heart fav-btn"></i>
+            <i class="fa fa-shopping-basket list-btn"></i>
+         </div>
+         <div class="col-12-fixed"><img src="http://static.food2fork.com/4515542dbb.jpg" class="recipe-img"></div>
+      </a> 
+   </div>
+</body>
+</html>
