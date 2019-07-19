@@ -1,17 +1,31 @@
-import { Ingredient, Recipe } from "./recipe.js";
-
-var recipes, favs, groceryList;
-
-function init() {
-   recipes = document.getElementsByClassName("recipes");
-
-   // for (let i = 0; i < recipes.length; i++) {
-   //    recipes[i].onmouseenter = function() { showHoverWrapper(this); };
-   //    recipes[i].onmouseleave = function() { hideHoverWrapper(this); };
-   // }
+// import { Ingredient, Recipe } from "./recipe.js";
+var Ingredient = function(name) {
+   this.name = name;
+   this.crossed_off = false;
 }
 
-function getIngredients(id) {
+var Recipe = function(id, title, image_url, source_url) {
+   this.id = id;
+   this.title = title;
+   this.image_url = image_url;
+   this.source_url = source_url;
+
+   let ingredients = [];
+
+   this.getIngredients = function() { return ingredients; }
+   this.addIngredient = function(ingredient) { ingredients.push(new Ingredient(ingredient)); }
+}
+
+var recipes, favRecipes, groceryListRecipes, miscList;
+
+function init() {
+   if (recipes == null) { recipes = []; }
+   if (favRecipes == null) { favRecipes = {}; }
+   if (groceryListRecipes == null) { groceryListRecipes = {}; }
+   if (miscList == null) { miscList = []; }
+}
+
+function addIngredients(id) {
    let xhr = new XMLHttpRequest();
    let url = "https://www.food2fork.com/api/get?key=b6c1e27f00566da7486407e22abdd521&rId=" + id;
 
@@ -19,6 +33,10 @@ function getIngredients(id) {
 
    xhr.onload = function() {
       let recipe = JSON.parse(xhr.responseText).recipe;
+
+      for (let i in recipe.ingredients) {
+         groceryListRecipes[id].addIngredient(recipe.ingredients[i]);
+      }      
    };
 
    xhr.onerror =  function() { result.innerHTML = "Request Failed"; };
@@ -61,11 +79,41 @@ function hideHoverWrapper(recipe) {
    recipe.getElementsByClassName("list-btn")[0].style.opacity = 0;
 }
 
+function createRecipe(parent) {
+   let name = parent.getElementsByTagName("h5")[0].innerHTML;
+   let link = parent.getElementsByTagName("a")[0];
+   let img = link.getElementsByTagName("img")[0].src;
+   let url = link.href;
+
+   return (new Recipe(parent.id, name, img, url));
+}
+
 function toggleFav(fav) {
+   let parent = fav.parentElement;
+   let id = parent.id;
    if (fav.classList.toggle("fav")) {
-      console.log("added fav");
+      let recipe = createRecipe(parent);
+      favRecipes[id] = recipe;
+      console.log("added #" + id + " favorite recipes");
    } else {
-      console.log("removed fav");
+      favRecipes[id] = null;
+      console.log("removed #" + id + " favorite recipes");
+   }
+}
+
+function addToGroceryListRecipes(list) {
+   let parent = list.parentElement;
+   let id = parent.id;
+
+   if (favRecipes[id] != null) {
+      groceryListRecipes[id] = favRecipes[id];
+      if (favRecipes[id].getIngredients().length == 0) {
+         addIngredients(id);
+      }
+   } else {
+      let recipe = createRecipe(parent);
+      groceryListRecipes[id] = recipe;
+      addIngredients(id);
    }
 }
 
@@ -87,13 +135,22 @@ function displayRecipes() {
       title.setAttribute("class", "recipe-title col-10");
       title.innerHTML = recipes[r].title;
 
+      recipe.appendChild(title);
+
       let fav = document.createElement("i");
       fav.setAttribute("class", "fa fa-heart fav-btn");
       fav.onclick = function() { toggleFav(this); };
 
-      let list = document.createElement("i");
-      list.setAttribute("class", "fa fa-shopping-basket list-btn");
+      recipe.appendChild(fav);
 
+      if (groceryListRecipes[recipes[r].recipe_id] == null) {
+         let list = document.createElement("i");
+         list.setAttribute("class", "fa fa-shopping-basket list-btn");
+         list.onclick = function() { addToGroceryListRecipes(this); };
+
+         recipe.appendChild(list);
+      }
+      
       let picCol = document.createElement("a");
       picCol.setAttribute("class", "col-12-fixed");
       picCol.setAttribute("href", recipes[r].source_url);
@@ -102,13 +159,91 @@ function displayRecipes() {
       pic.setAttribute("class", "recipe-img");
       pic.setAttribute("src", recipes[r].image_url);
 
-      picCol.appendChild(pic);
+      picCol.appendChild(pic); 
 
-      recipe.appendChild(title);
-      recipe.appendChild(fav);
-      recipe.appendChild(list);
       recipe.appendChild(picCol);
 
       result.appendChild(recipe);
+   }
+}
+
+// for list only
+
+function createIngredientLi(name, crossedOff) {
+   let li = document.createElement("li");
+   li.innerHTML = name;
+   li.setAttribute("class", crossedOff ? "ingredient crossed-off" : "ingredient");
+   li.onclick = function() { toggleCrossOff(this); };
+
+   return li;
+}
+
+function toggleCrossOff(ingredient) {
+   if (ingredient.classList.toggle("crossed-off")) {
+      console.log("crossed-off ingredient");
+   } else {
+      console.log("uncrossed-off ingredient");
+   }
+}
+
+function displayMiscList() {
+   let result = document.getElementById("result");
+
+   let title = document.createElement("h3");
+   title.innerHTML = "Misc";
+
+   let ul = document.createElement("ul");
+   ul.setAttribute("id", "ulMisc");
+
+   for (let i in miscList) {
+      ul.appendChild(createIngredientLi(miscList[i].name, miscList[i].crossed_off));
+   }
+
+   result.appendChild(title);
+   result.appendChild(ul);
+}
+
+function addToMiscList() {
+   let name = document.getElementById("newItem").value;
+   miscList.push(new Ingredient(name));
+
+   if (miscList.length == 1) {
+      displayMiscList();
+   } else {
+      let ulMisc = document.getElementById("ulMisc");
+      ulMisc.appendChild(createIngredientLi(name, false));
+   }
+}
+
+function displayGroceryList() {
+   let result = document.getElementById("result");
+
+   for (let i = result.childNodes.length - 1; i >= 0; i--) {
+      result.removeChild(result.childNodes[i]);
+   }
+
+   for (let r in groceryListRecipes) {
+      let ingredients = groceryListRecipes[r].getIngredients();
+
+      if (ingredients != null && ingredients.length > 0) {
+         let title = document.createElement("h3");
+         title.innerHTML = groceryListRecipes[r].title;
+
+         let ul = document.createElement("ul");
+
+         for (let i in ingredients) {
+            ul.appendChild(createIngredientLi(ingredients[i].name, ingredients[i].crossed_off));
+         }
+
+         let br = document.createElement("br");
+
+         result.appendChild(title);
+         result.appendChild(ul);
+         result.appendChild(br);
+      }      
+   }
+
+   if (miscList.length > 0) {
+      displayGroceryList();
    }
 }

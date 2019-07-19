@@ -15,60 +15,24 @@
 
    <style type="text/css">
       li { cursor: pointer; }
+      .crossed-off { text-decoration: line-through; }
    </style>
 
    <!-- Scripts -->
+   <script type="text/javascript" src="recipe.finder.js"></script>
    <script type="text/javascript">
-      var myList = ["ham", "cheese", "milk"];
-      var crossedOff = [false, false, false];
-
-      // loops through myList and displays it on the page in dev with id list
-      function displayList() {
-         var text = '<ul>';
-
-         for (var i in myList) {
-            text += "<li";
-
-            if (crossedOff[i]) {
-               text += " style='text-decoration: line-through;'";
-            } 
-            
-            text += " onclick='toggleCrossOffItem(" + i + ")'>" + myList[i] + "</li>";
-         }
-
-         text += "</ul>";
-
-         document.getElementById("list").innerHTML = text;
-      }
-
-      // adds item to myList if it isn't already there
-      function addItem() {
-         var item = document.getElementById("item").value;
-         
-         // check if item isn't already in list
-         if (!myList.includes(item)) {
-            myList.push(item);       // add item to list
-            crossedOff.push(false);  // set item to not be crossed off
-            displayList();           // redisplay list
-         }
-      }
-
-      // toggles the cross off of an item in myList based of param and crossedOff array value
-      // item should be a valid index of myList/crossedOff
-      function toggleCrossOffItem(item) {
-         // like an if statement
-         crossedOff[item] = crossedOff[item] ? false : true;
-         displayList();           // redisplay list
+      function initList() {
+         displayGroceryList();
       }
    </script>
 </head>
-<body class="container">
+<body class="container" onload="initList();">
    <header class="row"><h1 id="title" class="col">Grocery List</h1></header>
    <div class="row nav">
       <div class="col-md-8-fixed">
          <div class="row">
-            <button id="addItem" class="col-2-fixed" onclick="addItem();"><i class="fa fa-plus"></i></button>
-            <input type="text" name="item" id="item" class="col" maxlength="30">
+            <button id="addItem" class="col-2-fixed" onclick="addToMiscList();"><i class="fa fa-plus"></i></button>
+            <input type="text" name="newItem" id="newItem" class="col" maxlength="30">
          </div>
       </div>
       <div class="col-md-4-fixed">
@@ -80,7 +44,7 @@
       </div>
    </div>
    <div class="row">
-      <div id="list" class="col-12"></div>      
+      <div id="result" class="col-12"></div>      
    </div>
 </body>
 </html>
