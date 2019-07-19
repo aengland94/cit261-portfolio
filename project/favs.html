@@ -16,8 +16,17 @@
    <!-- Scripts -->
    <script type="text/javascript" src="recipe.finder.js"></script>
    <!-- <script type="module" src="recipe.finder.js"></script> -->
+   <script type="text/javascript">
+      function initFavs() {
+         init();
+
+         let favRecipesPreParse = sessionStorage.getItem("favRecipes");
+         let favRecipes = JSON.parse(favRecipesPreParse);
+         if (favRecipesPreParse.length > 2) { displayRecipes(favRecipes); }
+      }
+   </script>
 </head>
-<body class="container" onload="init();">
+<body class="container" onload="initFavs();">
    <header class="row"><h1 id="title" class="col">Your Favorite Recipe</h1></header>
    <div class="row nav">
       <div class="col-md-4-fixed">

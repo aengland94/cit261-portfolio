@@ -16,13 +16,18 @@ var Recipe = function(id, title, image_url, source_url) {
    this.addIngredient = function(ingredient) { ingredients.push(new Ingredient(ingredient)); }
 }
 
-var recipes, favRecipes, groceryListRecipes, miscList;
-
 function init() {
-   if (recipes == null) { recipes = []; }
-   if (favRecipes == null) { favRecipes = {}; }
-   if (groceryListRecipes == null) { groceryListRecipes = {}; }
-   if (miscList == null) { miscList = []; }
+   let recipes = JSON.parse(sessionStorage.getItem("recipes"));
+   if (recipes == null) { sessionStorage.setItem("recipes", JSON.stringify([])); }
+
+   let favRecipes = JSON.parse(localStorage.getItem("favRecipes"));
+   if (favRecipes == null) { localStorage.setItem(favRecipes, JSON.stringify({})); }
+
+   let groceryListRecipes = JSON.parse(localStorage.getItem("groceryListRecipes"));
+   if (groceryListRecipes == null) { localStorage.setItem("groceryListRecipes", JSON.stringify({})); }
+
+   let miscList = JSON.parse(localStorage.getItem("miscList"));
+   if (miscList == null) { localStorage.setItem("miscList", JSON.stringify([])); }
 }
 
 function addIngredients(id) {
@@ -33,10 +38,13 @@ function addIngredients(id) {
 
    xhr.onload = function() {
       let recipe = JSON.parse(xhr.responseText).recipe;
+      let groceryListRecipes = JSON.parse(localStorage.getItem("groceryListRecipes"));
 
       for (let i in recipe.ingredients) {
          groceryListRecipes[id].addIngredient(recipe.ingredients[i]);
-      }      
+      }     
+
+      localStorage.setItem("groceryListRecipes", JSON.stringify(groceryListRecipes));
    };
 
    xhr.onerror =  function() { result.innerHTML = "Request Failed"; };
@@ -44,21 +52,28 @@ function addIngredients(id) {
    xhr.send();
 }
 
-function loadData() {
-   let xhr = new XMLHttpRequest();
-   let q = encodeURIComponent(document.getElementById("ingredient").value.trim());
-   let url = "https://www.food2fork.com/api/search?key=b6c1e27f00566da7486407e22abdd521&q=" + q;
+function loadRecipes() {
+   let queryPreEncode = document.getElementById("ingredient").value.trim();
 
-   xhr.open("GET", url);
+   if (sessionStorage.getItem("queryString") != queryPreEncode) {
+      sessionStorage.setItem("queryString", queryPreEncode);
 
-   xhr.onload = function() {
-      recipes = JSON.parse(xhr.responseText).recipes;
-      displayRecipes();
-   };
+      let xhr = new XMLHttpRequest();
+      let query = encodeURIComponent(queryPreEncode);
+      let url = "https://www.food2fork.com/api/search?key=b6c1e27f00566da7486407e22abdd521&q=" + query;
 
-   xhr.onerror =  function() { result.innerHTML = "Request Failed"; };
+      xhr.open("GET", url);
 
-   xhr.send();
+      xhr.onload = function() {
+         let recipes = JSON.parse(xhr.responseText).recipes;
+         sessionStorage.getItem("recipes", JSON.stringify(recipes));
+         displayRecipes(recipes);
+      };
+
+      xhr.onerror =  function() { result.innerHTML = "Request Failed"; };
+
+      xhr.send();
+   }   
 }
 
 function showHoverWrapper(recipe) {
@@ -89,8 +104,10 @@ function createRecipe(parent) {
 }
 
 function toggleFav(fav) {
+   let favRecipes = JSON.parse(localStorage.getItem("favRecipes"));
    let parent = fav.parentElement;
    let id = parent.id;
+
    if (fav.classList.toggle("fav")) {
       let recipe = createRecipe(parent);
       favRecipes[id] = recipe;
@@ -99,9 +116,13 @@ function toggleFav(fav) {
       favRecipes[id] = null;
       console.log("removed #" + id + " favorite recipes");
    }
+
+   localStorage.setItem("favRecipes", JSON.stringify(favRecipes));
 }
 
 function addToGroceryListRecipes(list) {
+   let groceryListRecipes = JSON.parse(localStorage.getItem("groceryListRecipes"));
+   let favRecipes = JSON.parse(localStorage.getItem("favRecipes"));
    let parent = list.parentElement;
    let id = parent.id;
 
@@ -115,9 +136,19 @@ function addToGroceryListRecipes(list) {
       groceryListRecipes[id] = recipe;
       addIngredients(id);
    }
+
+   localStorage.setItem("groceryListRecipes", JSON.stringify(groceryListRecipes));
 }
 
-function displayRecipes() {
+function secureImg(img) {
+   if (img[4].toLowerCase() != "s") {
+      img = "https" + img.slice(4);
+   }
+
+   return img;
+}
+
+function displayRecipes(recipes) {
    let result = document.getElementById("result");
 
    for (let i = result.childNodes.length - 1; i >= 0; i--) {
@@ -143,6 +174,8 @@ function displayRecipes() {
 
       recipe.appendChild(fav);
 
+      let groceryListRecipes = JSON.parse(localStorage.getItem("groceryListRecipes"));
+
       if (groceryListRecipes[recipes[r].recipe_id] == null) {
          let list = document.createElement("i");
          list.setAttribute("class", "fa fa-shopping-basket list-btn");
@@ -157,7 +190,7 @@ function displayRecipes() {
 
       let pic = document.createElement("img");
       pic.setAttribute("class", "recipe-img");
-      pic.setAttribute("src", recipes[r].image_url);
+      pic.setAttribute("src", secureImg(recipes[r].image_url));
 
       picCol.appendChild(pic); 
 
@@ -187,6 +220,7 @@ function toggleCrossOff(ingredient) {
 }
 
 function displayMiscList() {
+   let miscList = JSON.parse(localStorage.getItem("miscList"));
    let result = document.getElementById("result");
 
    let title = document.createElement("h3");
@@ -204,7 +238,9 @@ function displayMiscList() {
 }
 
 function addToMiscList() {
+   let miscList = JSON.parse(localStorage.getItem("miscList"));
    let name = document.getElementById("newItem").value;
+
    miscList.push(new Ingredient(name));
 
    if (miscList.length == 1) {
@@ -213,9 +249,13 @@ function addToMiscList() {
       let ulMisc = document.getElementById("ulMisc");
       ulMisc.appendChild(createIngredientLi(name, false));
    }
+
+   localStorage.setItem("miscList", JSON.stringify(miscList));
 }
 
 function displayGroceryList() {
+   let groceryListRecipes = JSON.parse(localStorage.getItem("groceryListRecipes"));
+   let miscList = JSON.parse(localStorage.getItem("miscList"));
    let result = document.getElementById("result");
 
    for (let i = result.childNodes.length - 1; i >= 0; i--) {

@@ -21,13 +21,24 @@
    <!-- Scripts -->
    <script type="text/javascript" src="recipe.finder.js"></script>
    <!-- <script type="module" src="recipe.finder.js"></script> -->
+   <script type="text/javascript">
+      function initFinder() {
+         init();
+
+         let recipes = JSON.parse(sessionStorage.getItem("recipes"));
+         if (recipes.length > 0) { 
+            document.getElementById("ingredient").value = sessionStorage.getItem("queryString");
+            displayRecipes(recipes); 
+         }
+      }
+   </script>
 </head>
-<body class="container" onload="init();">
+<body class="container" onload="initFinder();">
    <header class="row"><h1 id="title" class="col">Recipe Finder</h1></header>
    <div class="row nav">
       <div class="col-md-8-fixed">
          <div class="row">
-            <button onclick="loadData();" class="col-2-fixed"><i class="fa fa-search"></i></button>
+            <button onclick="loadRecipes();" class="col-2-fixed"><i class="fa fa-search"></i></button>
             <input type="text" name="ingredient" id="ingredient" placeholder="Enter an ingredient" class="col">
          </div>
       </div>
