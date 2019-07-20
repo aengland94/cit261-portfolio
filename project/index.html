@@ -30,7 +30,7 @@
             document.getElementById("ingredient").value = sessionStorage.getItem("queryString");
             displayRecipes(recipes); 
          }
-      }
+      }      
    </script>
 </head>
 <body class="container" onload="initFinder();">
@@ -55,11 +55,12 @@
          <h5 class="col-12">:title</h5>
          <img src=":image_url" class="col-12">
       </a>  --> 
-      <div id="35120" class="col-6-fixed recipe" onmouseenter="showHoverWrapper(this);" onmouseleave="hideHoverWrapper(this);">
+      <div id="35120" class="col-6-fixed recipe"> <!-- onmouseenter="showHoverWrapper(this);" onmouseleave="hideHoverWrapper(this);"> -->
          <!-- <div class="recipe-background"></div> -->
          <h5 class="recipe-title col-10">:title</h5>
-         <i class="fa fav-btn fav" onclick="toggleFav(this);">&#xf004;</i>
+         <i class="fa fav-btn fav" onclick="toggleFav(this);" onmouseenter="addBtnEm(this);" onmouseleave="subBtnEm(this);">&#xf004;</i>
          <i class="fa list-btn" onclick="addToGroceryListRecipes(this);">&#xf291;</i>
+         <i class="fa fa-ellipsis-h options-btn" onclick="toggleShow(this);"></i>
          <a class="col-12-fixed" href="https://www.closetcooking.com/2012/11/bacon-wrapped-jalapeno-popper-stuffed.html"><img src="http://static.food2fork.com/Bacon2BWrapped2BJalapeno2BPopper2BStuffed2BChicken2B5002B5909939b0e65.jpg" class="recipe-img"></a>
       </div>    
       <a href=":source_url" class="col-6-fixed recipe"> 

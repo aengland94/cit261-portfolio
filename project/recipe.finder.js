@@ -72,22 +72,26 @@ function loadRecipes() {
    }   
 }
 
-function showHoverWrapper(recipe) {
-   recipe.getElementsByClassName("recipe-title")[0].style.opacity = 1;
-   recipe.getElementsByClassName("fav-btn")[0].style.opacity = 1;
-   recipe.getElementsByClassName("list-btn")[0].style.opacity = 1;
+function toggleShow(options) {
+   let parent = options.parentElement;
+
+   parent.getElementsByClassName("recipe-title")[0].classList.toggle("show");
+   parent.getElementsByClassName("fav-btn")[0].classList.toggle("show");
+
+   let groceryListRecipes = JSON.parse(localStorage.getItem("groceryListRecipes"));
+   if (groceryListRecipes[parent.id] == null) {
+      parent.getElementsByClassName("list-btn")[0].classList.toggle("show");
+   }   
 }
 
-function hideHoverWrapper(recipe) {
+function subBtnEm(btn) {
+   btn.style.transform = "scale(1)";   
+   btn.style.color = btn.classList.contains("fav") ? "#d38" : "#38aa9f";
+}
 
-   recipe.getElementsByClassName("recipe-title")[0].style.opacity = 0;
-
-   if (recipe.getElementsByClassName("fav-btn")[0].classList.toggle("fav")) {
-      recipe.getElementsByClassName("fav-btn")[0].style.opacity = 0;
-   }
-   recipe.getElementsByClassName("fav-btn")[0].classList.toggle("fav")
-
-   recipe.getElementsByClassName("list-btn")[0].style.opacity = 0;
+function addBtnEm(btn) {
+   btn.style.transform = "scale(1.5)";
+   btn.style.color = "#ccc";
 }
 
 function createRecipe(parent) {
@@ -159,10 +163,10 @@ function displayRecipes(recipes) {
       let recipe = document.createElement("div");
       recipe.setAttribute("class", "col-6-fixed recipe");
       recipe.setAttribute("id", recipes[r].recipe_id);
-      recipe.onmouseenter = function() { showHoverWrapper(this); };
-      recipe.onfocusin = function() { showHoverWrapper(this); };
-      recipe.onmouseleave = function() { hideHoverWrapper(this); };
-      recipe.onfocusout = function() { hideHoverWrapper(this); };
+      // recipe.onmouseenter = function() { showHoverWrapper(this); };
+      // recipe.onfocusin = function() { showHoverWrapper(this); };
+      // recipe.onmouseleave = function() { hideHoverWrapper(this); };
+      // recipe.onfocusout = function() { hideHoverWrapper(this); };
 
       let title = document.createElement("h5");
       title.setAttribute("class", "recipe-title col-10");
@@ -182,6 +186,10 @@ function displayRecipes(recipes) {
       
       fav.onclick = function() { toggleFav(this); };
       fav.ontouch = function() { toggleFav(this); };
+      fav.onmouseenter = function() { addBtnEm(this); };
+      fav.ontouchstart = function() { addBtnEm(this); };
+      fav.onmouseleave = function() { subBtnEm(this); };
+      fav.ontouchend = function() { subBtnEm(this); };
 
       recipe.appendChild(fav);
 
@@ -192,9 +200,22 @@ function displayRecipes(recipes) {
          list.setAttribute("class", "fa fa-shopping-basket list-btn");
          list.onclick = function() { addToGroceryListRecipes(this); };
          list.ontouch = function() { addToGroceryListRecipes(this); };
+         list.onmouseenter = function() { addBtnEm(this); };
+         list.ontouchstart = function() { addBtnEm(this); };
+         list.onmouseleave = function() { subBtnEm(this); };
+         list.ontouchend = function() { subBtnEm(this); };
 
          recipe.appendChild(list);
       }
+
+      let options = document.createElement("i");
+      options.setAttribute("class", "fa fa-ellipsis-h options-btn")
+      options.onclick = function() { toggleShow(this); };
+      options.ontouch = function() { toggleShow(this); };
+      options.onmouseenter = function() { addBtnEm(this); };
+      options.ontouchstart = function() { addBtnEm(this); };
+      options.onmouseleave = function() { subBtnEm(this); };
+      options.ontouchend = function() { subBtnEm(this); };
       
       let picCol = document.createElement("a");
       picCol.setAttribute("class", "col-12-fixed");
