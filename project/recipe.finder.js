@@ -62,7 +62,7 @@ function loadRecipes() {
 
       xhr.onload = function() {
          let recipes = JSON.parse(xhr.responseText).recipes;
-         sessionStorage.getItem("recipes", JSON.stringify(recipes));
+         sessionStorage.setItem("recipes", JSON.stringify(recipes));
          displayRecipes(recipes);
       };
 
@@ -96,7 +96,7 @@ function createRecipe(parent) {
    let img = link.getElementsByTagName("img")[0].src;
    let url = link.href;
 
-   return (new Recipe(parent.recipe_id, name, img, url));
+   return (new Recipe(parent.id, name, img, url));
 }
 
 function toggleFav(fav) {
@@ -105,8 +105,12 @@ function toggleFav(fav) {
    let recipe_id = parent.id;
 
    if (fav.classList.toggle("fav")) {
-      let recipe = createRecipe(parent);
-      favRecipes[recipe_id] = recipe;
+      if (groceryListRecipes[recipe_id] != null) {
+         favRecipes[recipe_id] = groceryListRecipes[recipe_id];
+      } else {
+         favRecipes[recipe_id] = createRecipe(parent);
+      }
+      
       console.log("added #" + recipe_id + " favorite recipes");
    } else {
       favRecipes[recipe_id] = null;
@@ -128,8 +132,7 @@ function addToGroceryListRecipes(list) {
          addIngredients(recipe_id);
       }
    } else {
-      let recipe = createRecipe(parent);
-      groceryListRecipes[recipe_id] = recipe;
+      groceryListRecipes[recipe_id] = createRecipe(parent);
       addIngredients(recipe_id);
    }
 
