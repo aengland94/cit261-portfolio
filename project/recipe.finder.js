@@ -100,6 +100,7 @@ function createRecipe(parent) {
 }
 
 function toggleFav(fav) {
+   let groceryListRecipes = JSON.parse(localStorage.getItem("groceryListRecipes"));
    let favRecipes = JSON.parse(localStorage.getItem("favRecipes"));
    let parent = fav.parentElement;
    let recipe_id = parent.id;
