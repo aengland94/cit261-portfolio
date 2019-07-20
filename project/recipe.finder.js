@@ -163,10 +163,6 @@ function displayRecipes(recipes) {
       let recipe = document.createElement("div");
       recipe.setAttribute("class", "col-6-fixed recipe");
       recipe.setAttribute("id", recipes[r].recipe_id);
-      // recipe.onmouseenter = function() { showHoverWrapper(this); };
-      // recipe.onfocusin = function() { showHoverWrapper(this); };
-      // recipe.onmouseleave = function() { hideHoverWrapper(this); };
-      // recipe.onfocusout = function() { hideHoverWrapper(this); };
 
       let title = document.createElement("h5");
       title.setAttribute("class", "recipe-title col-10");
@@ -216,6 +212,8 @@ function displayRecipes(recipes) {
       options.ontouchstart = function() { addBtnEm(this); };
       options.onmouseleave = function() { subBtnEm(this); };
       options.ontouchend = function() { subBtnEm(this); };
+
+      recipe.appendChild(options);
       
       let picCol = document.createElement("a");
       picCol.setAttribute("class", "col-12-fixed");
