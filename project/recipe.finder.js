@@ -233,6 +233,10 @@ function displayRecipes(recipes) {
 
 // for list only
 
+function finish(title) {
+   title.parentElement.getElementsByTagName("ul").classList.toggle("finish");
+}
+
 function createIngredientLi(name, crossedOff) {
    let li = document.createElement("li");
    li.innerHTML = name;
@@ -257,6 +261,8 @@ function displayMiscList() {
 
    let title = document.createElement("h3");
    title.innerHTML = "Misc";
+   title.onclick = function { finish(this); };
+   title.ontouch = function { finish(this); };
 
    let ul = document.createElement("ul");
    ul.setAttribute("id", "ulMisc");
