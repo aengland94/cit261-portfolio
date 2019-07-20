@@ -261,8 +261,8 @@ function displayMiscList() {
 
    let title = document.createElement("h3");
    title.innerHTML = "Misc";
-   title.onclick = function { finish(this); };
-   title.ontouch = function { finish(this); };
+   title.onclick = function() { finish(this); };
+   title.ontouch = function() { finish(this); };
 
    let ul = document.createElement("ul");
    ul.setAttribute("id", "ulMisc");
