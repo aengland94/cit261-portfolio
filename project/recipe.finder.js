@@ -246,6 +246,7 @@ function addToMiscList() {
    let name = document.getElementById("newItem").value;
 
    miscList.push(new Ingredient(name));
+   localStorage.setItem("miscList", JSON.stringify(miscList));
 
    if (miscList.length == 1) {
       displayMiscList();
@@ -253,8 +254,6 @@ function addToMiscList() {
       let ulMisc = document.getElementById("ulMisc");
       ulMisc.appendChild(createIngredientLi(name, false));
    }
-
-   localStorage.setItem("miscList", JSON.stringify(miscList));
 }
 
 function displayGroceryList() {
@@ -288,6 +287,6 @@ function displayGroceryList() {
    }
 
    if (miscList.length > 0) {
-      displayGroceryList();
+      displayMiscList();
    }
 }
