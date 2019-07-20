@@ -234,7 +234,7 @@ function displayRecipes(recipes) {
 // for list only
 
 function finish(title) {
-   title.parentElement.getElementsByTagName("ul")[0].classList.toggle("finish");
+   title.nextSibling.classList.toggle("finshed");
 }
 
 function createIngredientLi(name, crossedOff) {
