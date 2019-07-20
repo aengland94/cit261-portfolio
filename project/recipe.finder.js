@@ -156,7 +156,7 @@ function displayRecipes(recipes) {
 
    for (r in recipes) {
       let recipe = document.createElement("div");
-      recipe.setAttribute("class", "col-md-3-fixed col-6-fixed recipe");
+      recipe.setAttribute("class", "col-6-fixed recipe");
       recipe.setAttribute("id", recipes[r].recipe_id);
       recipe.onmouseenter = function() { showHoverWrapper(this); };
       recipe.onfocusin = function() { showHoverWrapper(this); };
