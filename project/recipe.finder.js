@@ -4,16 +4,12 @@ var Ingredient = function(name) {
    this.crossed_off = false;
 }
 
-var Recipe = function(id, title, image_url, source_url) {
-   this.id = id;
+var Recipe = function(recipe_id, title, image_url, source_url) {
+   this.recipe_id = recipe_id;
    this.title = title;
    this.image_url = image_url;
    this.source_url = source_url;
-
-   let ingredients = [];
-
-   this.getIngredients = function() { return ingredients; }
-   this.addIngredient = function(ingredient) { ingredients.push(new Ingredient(ingredient)); }
+   this.ingredients = [];
 }
 
 function init() {
@@ -21,7 +17,7 @@ function init() {
    if (recipes == null) { sessionStorage.setItem("recipes", JSON.stringify([])); }
 
    let favRecipes = JSON.parse(localStorage.getItem("favRecipes"));
-   if (favRecipes == null) { localStorage.setItem(favRecipes, JSON.stringify({})); }
+   if (favRecipes == null) { localStorage.setItem("favRecipes", JSON.stringify({})); }
 
    let groceryListRecipes = JSON.parse(localStorage.getItem("groceryListRecipes"));
    if (groceryListRecipes == null) { localStorage.setItem("groceryListRecipes", JSON.stringify({})); }
@@ -30,9 +26,9 @@ function init() {
    if (miscList == null) { localStorage.setItem("miscList", JSON.stringify([])); }
 }
 
-function addIngredients(id) {
+function addIngredients(recipe_id) {
    let xhr = new XMLHttpRequest();
-   let url = "https://www.food2fork.com/api/get?key=b6c1e27f00566da7486407e22abdd521&rId=" + id;
+   let url = "https://www.food2fork.com/api/get?key=b6c1e27f00566da7486407e22abdd521&rId=" + recipe_id;
 
    xhr.open("GET", url);
 
@@ -41,7 +37,7 @@ function addIngredients(id) {
       let groceryListRecipes = JSON.parse(localStorage.getItem("groceryListRecipes"));
 
       for (let i in recipe.ingredients) {
-         groceryListRecipes[id].addIngredient(recipe.ingredients[i]);
+         groceryListRecipes[recipe_id].ingredients.push(new Ingredient(recipe.ingredients[i]));
       }     
 
       localStorage.setItem("groceryListRecipes", JSON.stringify(groceryListRecipes));
@@ -100,21 +96,21 @@ function createRecipe(parent) {
    let img = link.getElementsByTagName("img")[0].src;
    let url = link.href;
 
-   return (new Recipe(parent.id, name, img, url));
+   return (new Recipe(parent.recipe_id, name, img, url));
 }
 
 function toggleFav(fav) {
    let favRecipes = JSON.parse(localStorage.getItem("favRecipes"));
    let parent = fav.parentElement;
-   let id = parent.id;
+   let recipe_id = parent.id;
 
    if (fav.classList.toggle("fav")) {
       let recipe = createRecipe(parent);
-      favRecipes[id] = recipe;
-      console.log("added #" + id + " favorite recipes");
+      favRecipes[recipe_id] = recipe;
+      console.log("added #" + recipe_id + " favorite recipes");
    } else {
-      favRecipes[id] = null;
-      console.log("removed #" + id + " favorite recipes");
+      favRecipes[recipe_id] = null;
+      console.log("removed #" + recipe_id + " favorite recipes");
    }
 
    localStorage.setItem("favRecipes", JSON.stringify(favRecipes));
@@ -124,17 +120,17 @@ function addToGroceryListRecipes(list) {
    let groceryListRecipes = JSON.parse(localStorage.getItem("groceryListRecipes"));
    let favRecipes = JSON.parse(localStorage.getItem("favRecipes"));
    let parent = list.parentElement;
-   let id = parent.id;
+   let recipe_id = parent.id;
 
-   if (favRecipes[id] != null) {
-      groceryListRecipes[id] = favRecipes[id];
-      if (favRecipes[id].getIngredients().length == 0) {
-         addIngredients(id);
+   if (favRecipes[recipe_id] != null) {
+      groceryListRecipes[recipe_id] = favRecipes[recipe_id];
+      if (favRecipes[recipe_id].ingredients.length == 0) {
+         addIngredients(recipe_id);
       }
    } else {
       let recipe = createRecipe(parent);
-      groceryListRecipes[id] = recipe;
-      addIngredients(id);
+      groceryListRecipes[recipe_id] = recipe;
+      addIngredients(recipe_id);
    }
 
    localStorage.setItem("groceryListRecipes", JSON.stringify(groceryListRecipes));
@@ -160,7 +156,9 @@ function displayRecipes(recipes) {
       recipe.setAttribute("class", "col-md-3-fixed col-6-fixed recipe");
       recipe.setAttribute("id", recipes[r].recipe_id);
       recipe.onmouseenter = function() { showHoverWrapper(this); };
+      recipe.onfocusin = function() { showHoverWrapper(this); };
       recipe.onmouseleave = function() { hideHoverWrapper(this); };
+      recipe.onfocusout = function() { hideHoverWrapper(this); };
 
       let title = document.createElement("h5");
       title.setAttribute("class", "recipe-title col-10");
@@ -171,6 +169,7 @@ function displayRecipes(recipes) {
       let fav = document.createElement("i");
       fav.setAttribute("class", "fa fa-heart fav-btn");
       fav.onclick = function() { toggleFav(this); };
+      fav.ontouch = function() { toggleFav(this); };
 
       recipe.appendChild(fav);
 
@@ -180,6 +179,7 @@ function displayRecipes(recipes) {
          let list = document.createElement("i");
          list.setAttribute("class", "fa fa-shopping-basket list-btn");
          list.onclick = function() { addToGroceryListRecipes(this); };
+         list.ontouch = function() { addToGroceryListRecipes(this); };
 
          recipe.appendChild(list);
       }
@@ -207,6 +207,7 @@ function createIngredientLi(name, crossedOff) {
    li.innerHTML = name;
    li.setAttribute("class", crossedOff ? "ingredient crossed-off" : "ingredient");
    li.onclick = function() { toggleCrossOff(this); };
+   li.ontouch = function() { toggleCrossOff(this); };
 
    return li;
 }
@@ -263,7 +264,7 @@ function displayGroceryList() {
    }
 
    for (let r in groceryListRecipes) {
-      let ingredients = groceryListRecipes[r].getIngredients();
+      let ingredients = groceryListRecipes[r].ingredients;
 
       if (ingredients != null && ingredients.length > 0) {
          let title = document.createElement("h3");

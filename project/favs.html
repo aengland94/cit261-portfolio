@@ -20,7 +20,7 @@
       function initFavs() {
          init();
 
-         let favRecipesPreParse = sessionStorage.getItem("favRecipes");
+         let favRecipesPreParse = localStorage.getItem("favRecipes");
          let favRecipes = JSON.parse(favRecipesPreParse);
          if (favRecipesPreParse.length > 2) { displayRecipes(favRecipes); }
       }

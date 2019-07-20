@@ -23,7 +23,7 @@
    opacity: 1;
    color: #d38
 }
-.recipe-title:hover, .fav-btn:hover, .list-btn:hover {
+.recipe-title:hover, .fav-btn:hover, .list-btn:hover, .recipe-title:focus, .fav-btn:focus, .list-btn:focus {
    opacity: 1;
    color: #ccc;
 }
