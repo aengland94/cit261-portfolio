@@ -170,8 +170,16 @@ function displayRecipes(recipes) {
 
       recipe.appendChild(title);
 
+      let favRecipes = JSON.parse(localStorage.getItem("favRecipes"));
+
       let fav = document.createElement("i");
-      fav.setAttribute("class", "fa fa-heart fav-btn");
+
+      if (favRecipes[recipes[r].recipe_id] == null) {
+         fav.setAttribute("class", "fa fa-heart fav-btn");
+      } else {
+         fav.setAttribute("class", "fa fa-heart fav-btn fav");
+      }
+      
       fav.onclick = function() { toggleFav(this); };
       fav.ontouch = function() { toggleFav(this); };
 
