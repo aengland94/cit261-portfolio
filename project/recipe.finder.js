@@ -85,12 +85,12 @@ function toggleShow(options) {
 }
 
 function subBtnEm(btn) {
-   btn.style.transform = "scale(2)";   
+   btn.style.transform = "scale(3)";   
    btn.style.color = btn.classList.contains("fav") ? "#d38" : "#38aa9f";
 }
 
 function addBtnEm(btn) {
-   btn.style.transform = "scale(3)";
+   btn.style.transform = "scale(4.5)";
    btn.style.color = "#ccc";
 }
 
