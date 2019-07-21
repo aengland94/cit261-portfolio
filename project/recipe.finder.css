@@ -11,6 +11,9 @@
    width: 100%;
    height: auto;
 }
+.btn {
+   height: 15px;
+}
 .recipe-title, .fav-btn, .list-btn, .options-btn {
    position: absolute;
    z-index: 5;
@@ -26,23 +29,23 @@
 .fav-btn, .list-btn, .options-btn { transform: scale(3); }
 .recipe-title {
    left: 20px;
-   transform-origin: 0 100%;
+   transform-origin: 0 0;
    transform: scale(2);
 }
 .fav-btn {
-   transform-origin: 100% 0;
+   transform-origin: 100% 100%;
    right: 20px;
    bottom: 20px;
    padding: 5px;
 }
 .list-btn {
-   transform-origin: 100% 0;
-   right: 120px;
+   transform-origin: 100% 100%;
+   right: 130px;
    bottom: 20px;
    padding: 5px;
 }
 .options-btn {
-   transform-origin: 0 0;
+   transform-origin: 0 100%;
    left: 20px;
    bottom: 20px;
    padding: 5px;
