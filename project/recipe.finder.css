@@ -18,6 +18,7 @@
    color: #38aa9f;
    opacity: 0;
    transition: 2s;
+   transform: scale(2);
 }
 .fav {
    opacity: 1;
