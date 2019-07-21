@@ -12,7 +12,7 @@
    height: auto;
 }
 .btn {
-   height: 15px;
+   transform: scale(3);
 }
 .recipe-title, .fav-btn, .list-btn, .options-btn {
    position: absolute;
