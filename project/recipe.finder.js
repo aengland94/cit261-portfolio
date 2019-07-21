@@ -161,7 +161,7 @@ function displayRecipes(recipes) {
 
    for (r in recipes) {
       let recipe = document.createElement("div");
-      recipe.setAttribute("class", "col-6-fixed recipe");
+      recipe.setAttribute("class", "col-12-fixed recipe");
       recipe.setAttribute("id", recipes[r].recipe_id);
 
       let title = document.createElement("h5");
