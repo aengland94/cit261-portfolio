@@ -13,28 +13,73 @@
    <link rel="stylesheet" type="text/css" href="../css/grid.css">
    <link rel="stylesheet" type="text/css" href="recipe.finder.css">
    <style type="text/css">
-      a:hover {
-         color: #38aa9f;
-      }
+      #slideContainer{        
+           position: relative;
+           margin: auto;
+           overflow: hidden;
+           border: black solid;
+           padding-left: 0;
+           max-width: 1140px;
+       }
+       #slideShow{
+         display: block;
+         width: 10000px;
+         transition: 2s;
+       }
+       .slides{
+           float: left;
+           width:   100%;
+           max-width: 1140px;
+           transition: 2.5s;
+       } 
    </style>
 
    <!-- Scripts -->
    <script type="text/javascript" src="recipe.finder.js"></script>
    <!-- <script type="module" src="recipe.finder.js"></script> -->
    <script type="text/javascript">
+      var slideShow;
       function initFinder() {
-         init();
+         //init();
+
+         initSlideShow();
 
          let recipes = JSON.parse(sessionStorage.getItem("recipes"));
          if (recipes.length > 0) { 
             document.getElementById("ingredient").value = sessionStorage.getItem("queryString");
             displayRecipes(recipes); 
          }
-      }      
+      } 
+
+      function initSlideShow() {
+         console.log("start slide show init");
+         let slides = document.getElementsByClassName("slides");
+         let width = document.getElementById("slideContainer").offsetWidth;
+
+         for (let i = 0; i < slides.length; i++) {
+            slides[i].style.maxWidth = width;
+         }
+
+         slideShow = document.getElementById("slideShow");
+         let slideShowWidth = width * slides.length;
+         slideShow.style.width = slideShowWidth.toString() + "px";
+         slideShow.style.animation = "slideShow 15s linear infinite";
+         console.log("end slide show init");
+      }     
    </script>
 </head>
 <body class="container" onload="initFinder();">
    <header class="row"><h1 id="title" class="col">Recipe Finder</h1></header>
+   <div class="row"><div id="slideContainer" class="col">
+      <div id="slideShow">
+        <img class="slides" src="./media/breakfast.jpg" alt="breakfast">
+        <img class="slides" src="./media/meat.jpg" alt="meat">
+        <img class="slides" src="./media/pasta.jpg" alt="pasta">
+        <img class="slides" src="./media/rice.jpg" alt="rice">
+        <img class="slides" src="./media/veggie.jpg" alt="veggie">
+        <img class="slides" src="./media/breakfast.jpg" alt="breakfast">
+      </div>
+   </div></div>
    <div class="row nav">
       <div class="col-12-fixed">
          <div class="row">

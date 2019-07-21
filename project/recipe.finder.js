@@ -305,6 +305,8 @@ function displayGroceryList() {
       if (ingredients != null && ingredients.length > 0) {
          let title = document.createElement("h3");
          title.innerHTML = groceryListRecipes[r].title;
+         title.onclick = function() { finish(this); };
+         title.ontouch = function() { finish(this); };
 
          let ul = document.createElement("ul");
 

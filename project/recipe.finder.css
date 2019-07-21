@@ -59,7 +59,8 @@
 }
 
 .finshed {
-   animation: fade-in 1.5s alternate;
+   /*animation: fade-in 1.5s alternate;*/
+   opacity: .2;
 }
 
 @keyframes fade-in {
@@ -77,5 +78,17 @@
    }
    50% {
       transform: translateY(10px);
+   }
+}
+
+@keyframes slideShow {
+   0% {
+      transform: translateX(0); 
+   }
+   99.99999999% {
+      transform: translateX(-83.4%); 
+   }
+   100% {
+      transform: translateX(0); 
    }
 }
