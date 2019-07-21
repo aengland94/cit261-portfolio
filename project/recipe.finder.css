@@ -25,22 +25,26 @@
 }
 .fav-btn, .list-btn, .options-btn { transform: scale(3); }
 .recipe-title {
-   left: 40px;
+   left: 20px;
+   transform-origin: 0 100%;
    transform: scale(2);
 }
 .fav-btn {
-   right: 40px;
-   bottom: 50px;
+   transform-origin: 100% 0;
+   right: 20px;
+   bottom: 20px;
    padding: 5px;
 }
 .list-btn {
-   right: 80px;
-   bottom: 50px;
+   transform-origin: 100% 0;
+   right: 120px;
+   bottom: 20px;
    padding: 5px;
 }
 .options-btn {
-   left: 40px;
-   bottom: 50px;
+   transform-origin: 0 0;
+   left: 20px;
+   bottom: 20px;
    padding: 5px;
    opacity: 1;
 }
